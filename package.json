@@ -1,0 +1,22 @@
+{
+  "name": "express-consumer-tesseract",
+  "version": "1.0.0",
+  "description": "express-consumer-tesseract",
+  "license": "MIT",
+  "repository": "raulcalvo/express-consumer-tesseract",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [
+    "express",
+    "consumer",
+    "tesseract"
+  ],
+  "dependencies": {
+    "express-file-consumer": "^1.0.0",
+    "logger-to-memory": "^1.0.1",
+    "node-tesseract-ocr": "^1.0.0",
+    "tesseract.js": "^2.0.2"
+  }
+}
