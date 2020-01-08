@@ -22,6 +22,9 @@ var config = {
         "afterProcessPolicy": 2,
         "processFunction": processFile
     },
+    "express":{
+        "port" : 88
+    },
     "logger": log
 };
 
@@ -39,16 +42,38 @@ function writeResult(file, text){
 }
 
 function processFile(file) {
-    const worker = createWorker();
+    log.log("Going to process file " + file);
+    const { createWorker } = require('tesseract.js');
+    
+    const worker = createWorker({
+      langPath: path.join(__dirname, 'lang-data'), 
+      logger: m => console.log(m),
+    });
+    
     return (async () => {
       await worker.load();
       await worker.loadLanguage('eng');
       await worker.initialize('eng');
       const { data: { text } } = await worker.recognize(file);
-
+      console.log(text);
       await worker.terminate();
       return await writeResult(file, text);
     })();
+
+    // const worker = createWorker({
+    //     workerPath: 'worker.min.js',
+    //     langPath: '',
+    //     corePath: 'tesseract-core.wasm.js',
+    //   });
+    // return (async () => {
+    //   await worker.load();
+    //   await worker.loadLanguage('eng');
+    //   await worker.initialize('eng');
+    //   const { data: { text } } = await worker.recognize(file);
+
+    //   await worker.terminate();
+    //   return await writeResult(file, text);
+    // })();
 }
 
 var _expressFileConsumer = new expressFileConsumer(config);
