@@ -34,10 +34,25 @@ function processFile(file, outputFolder) {
       await worker.loadLanguage('eng');
       await worker.initialize('eng');
       const { data: { text } } = await worker.recognize(file);
-
+      console.log(text);
       await worker.terminate();
       return await writeResult(file, outputFolder, text);
     })();
+
+    // const worker = createWorker({
+    //     workerPath: 'worker.min.js',
+    //     langPath: '',
+    //     corePath: 'tesseract-core.wasm.js',
+    //   });
+    // return (async () => {
+    //   await worker.load();
+    //   await worker.loadLanguage('eng');
+    //   await worker.initialize('eng');
+    //   const { data: { text } } = await worker.recognize(file);
+
+    //   await worker.terminate();
+    //   return await writeResult(file, text);
+    // })();
 }
 var config = {
     "file-consumer": {
